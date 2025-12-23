@@ -1,0 +1,110 @@
+[
+  {
+    "title": "How Tech Shapes the Future of Work in 2025",
+    "author": "Ethan Caldwell",
+    "date": "October 16, 2025",
+    "tags": ["Business", "News"],
+    "excerpt": "In today’s ever-evolving world, storytelling has become a powerful tool for connection. Revision provides a unique platform for individuals to...",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-1.webp"
+  },
+  {
+    "title": "Exploring the Rise of Remote Teams in Modern Workspaces",
+    "author": "Sophia Brooks",
+    "date": "June 25, 2025",
+    "tags": ["Trends", "Management"],
+    "excerpt": "Remote work isn’t just a trend, it’s the future. Discover how companies are adapting to hybrid workforces with innovative tools and leadership...",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-2.webp"
+  },
+  {
+    "title": "The Startup Boom: How Entrepreneurs are Changing the Game",
+    "author": "Liam Bennett",
+    "date": "May 12, 2025",
+    "tags": ["Startups", "Business"],
+    "excerpt": "Startups are redefining industries with speed and creativity. From bootstrapped beginnings to billion-dollar valuations, here’s how they’re doing it...",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-3.webp"
+  },
+  {
+    "title": "Business Travel Tools for the Digital Age",
+    "author": "Ethan Caldwell",
+    "date": "September 25, 2025",
+    "tags": [ "Business"],
+    "excerpt": "Learn how startups are leveraging data to fuel growth and scale in today’s competitive landscape.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-4.webp"
+  },
+  {
+    "title": "Key Sports Trends for 2025: From AI to Virtual Reality",
+    "author": "Ethan Caldwell",
+    "date": "September 24, 2025",
+    "tags": [ "Sports"],
+    "excerpt": "Dive into the key sports trends like AI and virtual reality set to redefine the sports industry in 2025.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-5.webp"
+  },
+  {
+    "title": "The Impact of Automation on Business Management Efficiency",
+    "author": "Ethan Caldwell",
+    "date": "September 20, 2025",
+    "tags": [ "Technology"],
+    "excerpt": "Learn how automation is boosting business management efficiency and driving growth in various sectors.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-6.webp"
+  },
+  {
+    "title": "Startups Disrupting the Sports Industry with Innovative Tech",
+    "author": "Ethan Caldwell",
+    "date": "September 15, 2025",
+    "tags": [ "Sports"],
+    "excerpt": "Discover how startups are leveraging technology to disrupt and innovate within the sports industry.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-7.webp"
+  },
+  {
+    "title": "Travel Trends in 2025: Virtual Tours and Immersive Experiences",
+    "author": "Ethan Caldwell",
+    "date": "September 15, 2025",
+    "tags": [ "News"],
+    "excerpt": "Explore the rise of virtual tours and immersive experiences shaping the future of travel in 2025.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-8.webp"
+  },
+  {
+    "title": "Why Data Security is a Priority for Business Management in 2025",
+    "author": "Ethan Caldwell",
+    "date": "September 5, 2025",
+    "tags": [ "Trends"],
+    "excerpt": "Understand why data security is a growing concern for business management in today's digital world.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-9.webp"
+  },
+  {
+    "title": "Startups and AI: How Artificial Intelligence Drives Innovation",
+    "author": "Ethan Caldwell",
+    "date": "August 30, 2025",
+    "tags": [ "Startups"],
+    "excerpt": "See how startups are harnessing the power of AI to foster innovation and reshape industries.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-10.webp"
+  },
+  {
+    "title": "Top Business Management Software Solutions for 2025",
+    "author": "Ethan Caldwell",
+    "date": "August 25, 2025",
+    "tags": [ "Management"],
+    "excerpt": "Learn about the top management software solutions driving efficiency and growth in businesses.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-11.webp"
+  },
+  {
+    "title": "How 5G Technology Will Impact the Travel Industry in 2025",
+    "author": "Ethan Caldwell",
+    "date": "August 25, 2025",
+    "tags": [ "Technology"],
+    "excerpt": "Discover how 5G technology is set to revolutionize connectivity and enhance travel experiences.",
+    "buttonText": "Discover More",
+    "image": "../Images/blog-12.webp"
+  }
+]
