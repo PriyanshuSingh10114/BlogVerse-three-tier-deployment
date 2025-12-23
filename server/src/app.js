@@ -6,8 +6,14 @@ import newsletterRoutes from "./utils/newsletter.js";
 import rssRoutes from "./routes/rss.routes.js";
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://blogverse-j1q2.onrender.com",
+  methods: ["POST"],
+}));
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/rss", rssRoutes);
 
