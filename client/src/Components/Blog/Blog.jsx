@@ -21,7 +21,7 @@ const [loading, setLoading] = useState(true);
 const [error, setError] = useState(false);
 
 useEffect(() => {
-  fetch(`${import.meta.env.VITE_API_URL}/api/blogs`)
+  fetch(`/api/posts`)
     .then(res => res.json())
     .then(data => {
       setBlogs(data);
@@ -53,7 +53,7 @@ useEffect(() => {
 
               <div className="w-full md:w-2/3">
                 <div className="flex gap-2 mb-3">
-                  {blog.tags.map((tag, _id) => (
+                  {blog.tags?.map((tag, _id) => (
                     <span
                       key={_id}
                       className="bg-gray-50/10 border border-[#83838380] text-xs font-semibold px-3 py-1 rounded-full"

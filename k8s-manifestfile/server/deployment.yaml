@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: three-tier
+  labels:
+    app: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: public.ecr.aws/r7m1r0t0/blogverse-server-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000   # MUST match PORT env
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: server-config
+                  key: PORT
+
+            - name: MONGODB_URI
+              value: mongodb://mongodb-svc:27017/BlogVerse
+
+            - name: EMAIL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: server-config
+                  key: EMAIL_USER
+
+            - name: EMAIL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: server-secret
+                  key: EMAIL_PASS
+

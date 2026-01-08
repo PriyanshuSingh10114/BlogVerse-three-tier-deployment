@@ -7,7 +7,7 @@ const CategoryBlogs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/blogs`)
+    fetch(`/api/posts`)
       .then(res => res.json())
       .then(data => {
         const filtered = data.filter(blog =>

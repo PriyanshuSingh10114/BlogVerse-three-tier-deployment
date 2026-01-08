@@ -22,7 +22,7 @@ function BlogDetails() {
     const [blog, setBlog] = useState(null);
     
     useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/blogs/${id}`)
+    fetch(`/api/blogs/`)
         .then(res => res.json())
         .then(data => setBlog(data))
         .catch(err => console.log(err));

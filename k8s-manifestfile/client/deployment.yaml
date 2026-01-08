@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: three-tier
+  labels:
+    role: client
+    env: demo
+spec: 
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels: 
+      role: client
+  template:
+    metadata:
+      labels:
+        role: client
+    spec: 
+      imagePullSecrets:
+      - name: ecr-registry-secret
+      containers:
+      - name: client
+        image: public.ecr.aws/r7m1r0t0/blogverse-client-app:latest
+        imagePullPolicy: Always
+        env:
+          - name: REACT_APP_BACKEND_URL
+            value: http://server.three-tier.svc.cluster.local:5173 
+        ports:
+        - containerPort: 5173

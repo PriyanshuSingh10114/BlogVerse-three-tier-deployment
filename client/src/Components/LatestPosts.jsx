@@ -5,7 +5,7 @@ const LatestPosts = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/blogs`)
+    fetch(`/api/posts`)
       .then(res => res.json())
       .then(data => {
         const sorted = [...data].sort(
