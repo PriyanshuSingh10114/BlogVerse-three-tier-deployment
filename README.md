@@ -48,6 +48,39 @@ SSH into the instance from your local machine.
     docker ps
     sudo chown $USER /var/run/docker.sock
 
+Retrieve an authentication token and authenticate your Docker client to your registry. Use the AWS CLI:
+
+    aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r7m1r0t0
+    
+Note: If you receive an error using the AWS CLI, make sure that you have the latest version of the AWS CLI and Docker installed. Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+
+    docker build -t blogverse-client-app .
+    
+After the build completes, tag your image so you can push the image to this repository:
+
+    docker tag blogverse-client-app:latest public.ecr.aws/r7m1r0t0/blogverse-client-app:latest
+    
+Run the following command to push this image to your newly created AWS repository:
+
+    docker push public.ecr.aws/r7m1r0t0/blogverse-client-app:latest
+
+Retrieve an authentication token and authenticate your Docker client to your registry. Use the AWS CLI:
+
+    aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/r7m1r0t0
+    
+Note: If you receive an error using the AWS CLI, make sure that you have the latest version of the AWS CLI and Docker installed.
+Build your Docker image using the following command. For information on building a Docker file from scratch see the instructions here . You can skip this step if your image is already built:
+
+    docker build -t blogverse-server-app .
+    
+After the build completes, tag your image so you can push the image to this repository:
+
+    docker tag blogverse-server-app:latest public.ecr.aws/r7m1r0t0/blogverse-server-app:latest
+    
+Run the following command to push this image to your newly created AWS repository:
+
+    docker push public.ecr.aws/r7m1r0t0/blogverse-server-app:latest
+
 <h1>Step 5: Install kubectl</h1>
 
     curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
@@ -87,6 +120,7 @@ SSH into the instance from your local machine.
     helm repo update eks
     helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=my-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
     kubectl get deployment -n kube-system aws-load-balancer-controller
+    
 
 <h1>Step 11: Ingress </h1>
 
