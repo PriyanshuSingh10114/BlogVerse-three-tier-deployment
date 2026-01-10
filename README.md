@@ -94,9 +94,12 @@ SSH into the instance from your local machine.
 
 Check the deployment through load balancer get the dns
 
-    <p align="center">
-      <img src="three-tier-architecture.png" alt="BlogVerse Architecture" width="900"/>
-    </p>
+    k8s-threetie-mainlb-c0d4aec13e-1877973301.ap-south-1.elb.amazonaws.com
+
+
+  <p align="center">
+    <img src="three-tier.png" alt="BlogVerse Architecture" width="900"/>
+  </p>
     
 Cleanup
 
@@ -106,8 +109,8 @@ To delete the EKS cluster:
     
 To clean up rest of the stuff and not incure any cost
 
-Stop or Terminate the EC2 instance created in step 2.
-
-Delete the Load Balancer created in step 9 and 10.
+    Stop or Terminate the EC2 instance created in step 2.
+    
+    Delete the Load Balancer created in step 9 and 10.
 
 
