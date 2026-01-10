@@ -1,6 +1,7 @@
+<h1>BlogVerse-Three-tier-deployment</h1>
 
 <p align="center">
-  <img src="three-tierarchitecture.png" alt="BlogVerse Architecture" width="700"/>
+  <img src="three-tier-architecture.png" alt="BlogVerse Architecture" width="900"/>
 </p>
 
 
@@ -16,7 +17,18 @@ Generate Security Credentials: Access Key and Secret Access Key.
 
 <h1>Step 2: EC2 Setup</h1>
 
-Launch an Ubuntu instance in your favourite region (eg. region ap-south-1).
+    ubuntu Instance
+    t2.micro
+    20GBi
+    create access key with .pem
+    region ap-south-1
+
+    connect it with ssh client with command line in your system
+
+after login 
+
+    sudo-apt get update
+    
 
 SSH into the instance from your local machine.
 
@@ -79,6 +91,12 @@ SSH into the instance from your local machine.
 <h1>Step 11: Ingress </h1>
 
     kubectl apply -f full_stack_lb.yaml
+
+Check the deployment through load balancer get the dns
+
+    <p align="center">
+      <img src="three-tier-architecture.png" alt="BlogVerse Architecture" width="900"/>
+    </p>
     
 Cleanup
 
