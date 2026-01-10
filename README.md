@@ -39,7 +39,12 @@ SSH into the instance from your local machine.
     unzip awscliv2.zip
     sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
 
-    aws configure
+aws configure
+
+    Enter public access key
+    Enter private access key 
+    Select Region ap-south-1
+    In fourth option make blank entry
 
 <h1>Step 4: Install Docker</h1>
 
@@ -96,7 +101,8 @@ Run the following command to push this image to your newly created AWS repositor
 
 <h1>Step 7: Setup EKS Cluster</h1>
 
-    eksctl create cluster --name three-tier-cluster --region us-west-2 --node-type t2.medium --nodes-min 2 --nodes-max 2
+    eksctl create cluster --name three-tier-cluster --region ap-south-1
+    --node-type t2.medium --nodes-min 2 --nodes-max 2
     aws eks update-kubeconfig --region us-west-2 --name three-tier-cluster
     kubectl get nodes
     
