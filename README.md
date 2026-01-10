@@ -1,3 +1,9 @@
+
+<p align="center">
+  <img src="three-tierarchitecture.png" alt="BlogVerse Architecture" width="700"/>
+</p>
+
+
 <h1>Getting Started</h1>
 
 To get started with this project, refer to our comprehensive guide that walks you through IAM user setup, infrastructure provisioning, CI/CD pipeline configuration, EKS cluster creation, and more.
