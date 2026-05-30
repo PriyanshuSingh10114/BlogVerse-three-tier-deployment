@@ -1,0 +1,33 @@
+# Namespace for Observability
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+---
+# HelmRepository for Prometheus Community
+# Commands to deploy:
+# helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# helm repo update
+# helm install prometheus prometheus-community/kube-prometheus-stack -n observability --create-namespace
+
+# Example ServiceMonitor for Node.js App (Requires prometheus-client in backend)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: blogverse-api-monitor
+  namespace: observability
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: blogverse-server
+  endpoints:
+  - port: http
+    path: '/metrics'
+    interval: 15s
+---
+# To Install Loki & Promtail for Logging:
+# helm repo add grafana https://grafana.github.io/helm-charts
+# helm repo update
+# helm install loki grafana/loki-stack -n observability

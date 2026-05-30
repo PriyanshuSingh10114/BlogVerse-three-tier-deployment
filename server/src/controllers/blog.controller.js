@@ -1,24 +1,19 @@
-import Blog from "../models/Blog.js";
+import blogService from "../services/blog.service.js";
 
 export const getAllBlogs = async (req, res, next) => {
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
-    res.status(200).json(blogs);
+    const { page, limit, search, status } = req.query;
+    const result = await blogService.getAllBlogs({ page, limit, search, status });
+    res.status(200).json({ success: true, ...result });
   } catch (error) {
     next(error);
   }
 };
 
-
-export const getBlogById = async (req, res, next) => {
+export const getBlogBySlug = async (req, res, next) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-
-    if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
-    }
-
-    res.status(200).json(blog);
+    const blog = await blogService.getBlogBySlug(req.params.slug);
+    res.status(200).json({ success: true, data: blog });
   } catch (error) {
     next(error);
   }
@@ -26,8 +21,30 @@ export const getBlogById = async (req, res, next) => {
 
 export const createBlog = async (req, res, next) => {
   try {
-    const blog = await Blog.create(req.body);
-    res.status(201).json(blog);
+    const blog = await blogService.createBlog(req.body, req.user._id);
+    res.status(201).json({ success: true, data: blog });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteBlog = async (req, res, next) => {
+  try {
+    await blogService.deleteBlog(req.params.id, req.user._id);
+    res.status(200).json({ success: true, message: "Blog soft deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const toggleInteraction = async (req, res, next) => {
+  try {
+    const { type } = req.body; // 'like' or 'bookmark'
+    if (!['like', 'bookmark'].includes(type)) {
+      return res.status(400).json({ success: false, message: "Invalid interaction type" });
+    }
+    const result = await blogService.toggleInteraction(req.params.id, req.user._id, type);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
