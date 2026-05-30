@@ -26,6 +26,7 @@ export default {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
+        border: 'hsl(var(--border))',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
