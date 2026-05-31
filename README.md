@@ -2,8 +2,6 @@
   <h1>🚀 BlogVerse</h1>
   <p><strong>A Production-Ready, Highly Scalable, Cloud-Native Publishing SaaS Platform</strong></p>
 
-  <img src="three-tier-architecture.png" alt="BlogVerse Architecture" width="900" style="border-radius: 8px; margin-bottom: 20px;"/>
-
   ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
   ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
   ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -12,6 +10,10 @@
   ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
   ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 </div>
+
+---
+
+  <img src="three-tier-architecture.png" alt="BlogVerse Architecture" width="900" style="border-radius: 8px; margin-bottom: 20px;"/>
 
 ---
 
