@@ -12,26 +12,33 @@ import notion from '../../assets/notion.png';
 import ps from '../../assets/ps.png';
 import AI from '../../assets/AI.png';
 import { Link } from 'react-router-dom';
-
+import localBlogs from '../../Blogs.json';
 
 function Blog() {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-const [blogs, setBlogs] = useState([]);
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(false);
-
-useEffect(() => {
-  fetch(`/api/posts`)
-    .then(res => res.json())
-    .then(data => {
-      setBlogs(data);
-      setLoading(false);
-    })
-    .catch(() => {
-      setError(true);
-      setLoading(false);
-    });
-}, []);
+  useEffect(() => {
+    fetch(`/api/posts`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setBlogs(data);
+        } else {
+          setBlogs(localBlogs);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setBlogs(localBlogs);
+        setError(true);
+        setLoading(false);
+      });
+  }, []);
 
 
 
@@ -39,10 +46,16 @@ useEffect(() => {
     <div className="px-[8%] lg:px-[12%] py-10">
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="w-full lg:w-8/12 p-4 rounded-lg">
-          {blogs.map((blog) => (
-            <div key={blog._id} className="flex flex-col md:flex-row items-center gap-6 mb-10">
+          {loading && (
+            <div className="text-center py-10 text-gray-400">Loading stories...</div>
+          )}
+          {error && (
+            <div className="text-xs text-gray-500 mb-4 italic">Showing local stories archive</div>
+          )}
+          {blogs.map((blog, idx) => (
+            <div key={blog._id || blog.id || idx} className="flex flex-col md:flex-row items-center gap-6 mb-10">
               <div className="w-full md:w-1/2 overflow-hidden rounded-xl">
-                <Link to={`/blog/${blog._id}`}>
+                <Link to={`/blog/${blog._id || blog.id}`}>
                   <img
                     src={blog.image}
                     alt={blog.title}

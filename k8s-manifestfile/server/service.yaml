@@ -3,12 +3,16 @@ kind: Service
 metadata:
   name: server
   namespace: three-tier
+  labels:
+    app: server
+    app.kubernetes.io/name: server
+    app.kubernetes.io/part-of: blogverse
 spec:
   type: ClusterIP
   selector:
     app: server
   ports:
-    - port: 5000
+    - name: http
+      port: 5000
       targetPort: 5000
       protocol: TCP
-

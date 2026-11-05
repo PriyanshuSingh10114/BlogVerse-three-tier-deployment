@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import localBlogs from "../Blogs.json";
 
 const CategoryBlogs = () => {
   const { category } = useParams();
@@ -8,15 +9,27 @@ const CategoryBlogs = () => {
 
   useEffect(() => {
     fetch(`/api/posts`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Network error");
+        return res.json();
+      })
       .then(data => {
-        const filtered = data.filter(blog =>
-          blog.tags.includes(category)
+        const source = Array.isArray(data) && data.length > 0 ? data : localBlogs;
+        const filtered = source.filter(blog =>
+          Array.isArray(blog.tags) &&
+          blog.tags.some(t => t.toLowerCase() === (category || "").toLowerCase())
         );
         setBlogs(filtered);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        const filtered = localBlogs.filter(blog =>
+          Array.isArray(blog.tags) &&
+          blog.tags.some(t => t.toLowerCase() === (category || "").toLowerCase())
+        );
+        setBlogs(filtered);
+        setLoading(false);
+      });
   }, [category]);
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;

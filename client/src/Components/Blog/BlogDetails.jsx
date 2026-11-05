@@ -1,8 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import localBlogs from "../../Blogs.json";
 
-import authorImg from '../../assets/about.png'
-import featuredImg from '../../assets/hero-slide-2.png';
 import techImg from '../../assets/hero-slide-3.png';
 
 import figma from '../../assets/figma.png';
@@ -20,24 +19,51 @@ import 'swiper/css/navigation';
 function BlogDetails() {
     const { id } = useParams();
     const [blog, setBlog] = useState(null);
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-    fetch(`/api/blogs/`)
-        .then(res => res.json())
-        .then(data => setBlog(data))
-        .catch(err => console.log(err));
+      fetch(`/api/blogs/${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Blog not found via API");
+          return res.json();
+        })
+        .then((data) => {
+          if (data?.data && typeof data.data === "object" && !Array.isArray(data.data)) {
+            setBlog(data.data);
+          } else if (data && typeof data === "object" && !Array.isArray(data) && data.title) {
+            setBlog(data);
+          } else {
+            throw new Error("Invalid format");
+          }
+          setLoading(false);
+        })
+        .catch(() => {
+          const match = localBlogs.find(
+            (b) => String(b.id) === String(id) || String(b._id) === String(id)
+          );
+          setBlog(match || localBlogs[0]);
+          setLoading(false);
+        });
     }, [id]);
 
+    if (loading) return <div className="p-20 text-center text-lg">Loading story...</div>;
+    if (!blog) return <div className="p-20 text-center text-lg">Blog post not found.</div>;
 
-
-    if (!blog) return <div className="p-10 text-center text-white">Blog not found.</div>;
+    const tagsList = Array.isArray(blog.tags) ? blog.tags : [];
+    const formattedDate = blog.publishedAt
+      ? new Date(blog.publishedAt).toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      : blog.date || "Recent";
 
     return (
         <>
             <div className="px-4 sm:px-6 lg:px-[12%]  py-10 mt-12 text-center">
                 <div className=" mx-auto">
                     <p className="text-sm mb-1 mt-5">
-                        Home <span className="mx-1">&gt;</span> {blog.tags[0]} <span className="mx-1">&gt;</span> <span className="font-semibold">{blog.title}</span>
+                        Home <span className="mx-1">&gt;</span> {tagsList[0] || "Blog"} <span className="mx-1">&gt;</span> <span className="font-semibold">{blog.title}</span>
                     </p>
 
                     <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4  mt-5" style={{ fontFamily: "var( --Bricolage-font)" }}>
@@ -51,7 +77,7 @@ function BlogDetails() {
                     <div className="rounded-2xl overflow-hidden mb-10 shadow-lg relative">
                         <div className="flex justify-between items-center w-full px-6 absolute top-10 left-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                                {blog.tags.map((tag, _id) => (
+                                {tagsList.map((tag, _id) => (
                                     <span
                                         key={_id}
                                         className="bg-black text-white text-md font-medium px-4 py-2 rounded-full "
@@ -61,12 +87,8 @@ function BlogDetails() {
                                 ))}
                             </div>
                             <p className="text-white text-lg bg-black px-5 py-2 rounded-full">
-                            {blog.author} ·{" "}
-                            {new Date(blog.publishedAt).toLocaleDateString("en-US", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                            })}
+                            {blog.author?.name || blog.author || "Editorial"} ·{" "}
+                            {formattedDate}
                             </p>
 
                         </div>
