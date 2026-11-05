@@ -30,7 +30,7 @@ export const createBlog = async (req, res, next) => {
 
 export const deleteBlog = async (req, res, next) => {
   try {
-    await blogService.deleteBlog(req.params.id, req.user._id);
+    await blogService.deleteBlog(req.params.id, req.user._id, req.user.role);
     res.status(200).json({ success: true, message: "Blog soft deleted" });
   } catch (error) {
     next(error);
@@ -39,8 +39,8 @@ export const deleteBlog = async (req, res, next) => {
 
 export const toggleInteraction = async (req, res, next) => {
   try {
-    const { type } = req.body; // 'like' or 'bookmark'
-    if (!['like', 'bookmark'].includes(type)) {
+    const { type } = req.body;
+    if (!["like", "bookmark"].includes(type)) {
       return res.status(400).json({ success: false, message: "Invalid interaction type" });
     }
     const result = await blogService.toggleInteraction(req.params.id, req.user._id, type);

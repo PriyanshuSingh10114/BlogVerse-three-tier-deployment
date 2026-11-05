@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import localBlogs from "../Blogs.json";
 
 const LatestPosts = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     fetch(`/api/posts`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Network error");
+        return res.json();
+      })
       .then(data => {
-        const sorted = [...data].sort(
-          (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+        const source = Array.isArray(data) && data.length > 0 ? data : localBlogs;
+        const sorted = [...source].sort(
+          (a, b) => new Date(b.publishedAt || b.date) - new Date(a.publishedAt || a.date)
         );
         setBlogs(sorted.slice(0, 6));
       })
-      .catch(err => console.error(err));
+      .catch(() => {
+        setBlogs(localBlogs.slice(0, 6));
+      });
   }, []);
 
   return (

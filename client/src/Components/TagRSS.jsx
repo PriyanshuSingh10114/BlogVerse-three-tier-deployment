@@ -6,10 +6,9 @@ const TagRSS = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = import.meta.env.VITE_API_URL;
-
   useEffect(() => {
-    fetch(`${API_URL}/api/rss/${tag}`)
+    const apiUrl = import.meta.env.VITE_API_URL || "";
+    fetch(`${apiUrl}/api/rss/${tag}`)
       .then(res => res.json())
       .then(data => {
         if (data.success) setItems(data.items);

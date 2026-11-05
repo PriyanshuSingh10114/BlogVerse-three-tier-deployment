@@ -1,8 +1,8 @@
-import logger from '../config/logger.js';
+import logger from "../config/logger.js";
 
-const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
-  
+const errorHandler = (err, req, res, _next) => {
+  const statusCode = err.statusCode || (res.statusCode && res.statusCode !== 200 ? res.statusCode : 500);
+
   logger.error(`${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
 
   res.status(statusCode).json({
@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
     error: {
       message: err.message || "Internal Server Error",
       stack: process.env.NODE_ENV === "production" ? null : err.stack,
-    }
+    },
   });
 };
 

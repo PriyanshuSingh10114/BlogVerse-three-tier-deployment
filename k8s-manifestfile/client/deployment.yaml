@@ -5,30 +5,60 @@ metadata:
   namespace: three-tier
   labels:
     role: client
-    env: demo
-spec: 
-  replicas: 1
+    app.kubernetes.io/name: client
+    app.kubernetes.io/part-of: blogverse
+spec:
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 25%
   selector:
-    matchLabels: 
+    matchLabels:
       role: client
   template:
     metadata:
       labels:
         role: client
-    spec: 
-      imagePullSecrets:
-      - name: ecr-registry-secret
+        app.kubernetes.io/name: client
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
       containers:
-      - name: client
-        image: public.ecr.aws/r7m1r0t0/blogverse-client-app:latest
-        imagePullPolicy: Always
-        env:
-          - name: REACT_APP_BACKEND_URL
-            value: http://server.three-tier.svc.cluster.local:5173 
-        ports:
-        - containerPort: 5173
+        - name: client
+          image: public.ecr.aws/r7m1r0t0/blogverse-client-app:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 5

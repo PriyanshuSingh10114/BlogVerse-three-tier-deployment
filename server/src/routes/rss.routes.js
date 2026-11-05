@@ -41,7 +41,7 @@ router.get("/:tag", async (req, res) => {
             source: source.name
           }))
         );
-      } catch (err) {
+      } catch (_err) {
         console.warn(`RSS skipped: ${source.name}`);
       }
     }
